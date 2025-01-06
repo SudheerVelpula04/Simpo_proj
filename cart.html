@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <link rel="stylesheet" href="cart_styles.css">
+</head>
+<body>
+  <h1>Shopping Cart</h1>
+  <div id="cart-container">
+    <!-- Cart items will be dynamically added here -->
+  </div>
+
+  <h2>Checkout Details</h2>
+  <form id="checkout-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="address">Address:</label>
+    <textarea id="address" name="address" rows="3" required></textarea>
+
+    <button type="submit">Submit Order</button>
+  </form>
+
+  <script src="cart_script.js"></script>
+  <script>
+      document.getElementById("submit-order-btn").addEventListener("click", async () => {
+    const clientData = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      address: document.getElementById("address").value,
+      order: JSON.parse(localStorage.getItem("cartItems") || "[]") // Order from localStorage
+    };
+
+    try {
+      const response = await fetch("/submit-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(clientData)
+      });
+
+      if (response.ok) {
+        window.location.href = "success.html"; // Redirect to success page
+      } else {
+        alert("Failed to submit order. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting order:", error);
+      alert("An error occurred. Please try again.");
+    }
+  });
+  </script>
+</body>
+</html>
