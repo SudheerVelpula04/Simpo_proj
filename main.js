@@ -69,3 +69,7 @@ const password=document.getElementById('password').value;
 //     // ...
 //   }
 // });
+
+const gestLogin=()=>{
+  window.open('cards_UI.html','_self')
+}
