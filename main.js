@@ -20,9 +20,14 @@ const auth = firebaseApp.auth();
 const signUp = ()=>{
 const email=document.getElementById('email').value;
 const password=document.getElementById('password').value;
-console.log(email,password)
 
 
+if(!email || !password){
+  alert('Please enter both email and password.');
+  return;
+  }
+  console.log(email,password)
+// alert('plese register the details')
 firebase.auth().createUserWithEmailAndPassword(email,'/'+ password)
   .then((result) => {
     // Signed in 
@@ -42,7 +47,10 @@ firebase.auth().createUserWithEmailAndPassword(email,'/'+ password)
 const signIn=()=>{
 const email=document.getElementById('email').value;
 const password=document.getElementById('password').value;
-
+  if(!email || !password){
+    alert('Please enter both email and password.');
+    return;
+  }
     firebase.auth().signInWithEmailAndPassword(email,'/'+ password)
   .then((result) => {
     // Signed in
